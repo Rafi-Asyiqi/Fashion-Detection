@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Klasifikasi Jenis Pakaian</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #e6e2dc;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #3a6e8c;
+            padding: 20px 40px;
+            font-size: 24px;
+            position: relative;
+        }
+        .navbar-left {
+            position: absolute;
+            left: 20px;
+            display: flex;
+            align-items: center;
+            color: white;
+            font-weight: bold;
+            font-family: 'Shrikhand', cursive;
+        }
+        .navbar-left img {
+            height: 50px;
+            margin-right: 10px;
+        }
+        .navbar-center {
+            color: white;
+            text-align: center;
+        }
+        .icon-button {
+            background-color: #1a1a1a;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            color: white;
+        }
+        #upload-container {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        #uploaded-image {
+            max-width: 300px;
+            margin-top: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            padding: 5px;
+            display: none;
+        }
+        #upload-result {
+            margin-top: 15px;
+            text-align: center;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <img src="/static/uploads/logo.png" alt="Logo" />
+        </div>
+        <div class="navbar-center">
+            <span>Sistem Klasifikasi Jenis Pakaian</span>
+        </div>
+    </nav>
+
+    <div id="upload-container">
+        <button id="upload-button" class="icon-button">Upload Gambar</button>
+        <input type="file" id="file-input" accept="image/*" style="display: none;" />
+        <img id="uploaded-image" src="" alt="Uploaded Image" />
+        <div id="upload-result"></div>
+    </div>
+
+    <script>
+        document.getElementById('upload-button').addEventListener('click', () => {
+            document.getElementById('file-input').click();
+        });
+
+        document.getElementById('file-input').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const uploadedImage = document.getElementById('uploaded-image');
+            const resultContainer = document.getElementById('upload-result');
+
+            uploadedImage.src = URL.createObjectURL(file);
+            uploadedImage.style.display = 'block';
+            resultContainer.innerHTML = 'Memproses gambar...';
+
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const img = new Image();
+                img.onload = function () {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    const MODEL_WIDTH = 28;
+                    const MODEL_HEIGHT = 28;
+
+                    canvas.width = MODEL_WIDTH;
+                    canvas.height = MODEL_HEIGHT;
+                    ctx.drawImage(img, 0, 0, MODEL_WIDTH, MODEL_HEIGHT);
+
+                    const imageData = ctx.getImageData(0, 0, MODEL_WIDTH, MODEL_HEIGHT);
+                    const data = imageData.data;
+                    const inputArray = [];
+
+                    for (let i = 0; i < data.length; i += 4) {
+                        const gray = (data[i] + data[i + 1] + data[i + 2]) / 3;
+                        inputArray.push(gray / 255);
+                    }
+
+                    fetch('/predict', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ input: inputArray })
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        resultContainer.innerHTML = data.prediction
+                            ? `Hasil Prediksi: <strong>${data.prediction}</strong>`
+                            : 'Tidak ada hasil prediksi.';
+                    })
+                    .catch(err => {
+                        console.error(err);
+                        resultContainer.innerHTML = 'Terjadi kesalahan saat memproses gambar.';
+                    });
+                };
+                img.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
