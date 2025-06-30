@@ -32,7 +32,7 @@ The model (`fashion.h5`) is a CNN trained on an extended Fashion MNIST dataset t
 ## ⚙️ How to Run Locally
 1. Clone this repository:
 ```bash
-git clone https://github.com/yourusername/fashion-classification-app.git
+git clone https://github.com/Rafi-Asyiqi/Fashion-Detection.git
 cd fashion-classification-app
 ```
 
@@ -59,6 +59,3 @@ http://127.0.0.1:5000/
 - Improve image preprocessing pipeline
 - Enhance model accuracy with more diverse datasets
 - Add drag-and-drop upload and camera capture
-
-## 📝 License
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
