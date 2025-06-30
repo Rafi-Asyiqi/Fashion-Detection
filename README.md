@@ -59,3 +59,7 @@ http://127.0.0.1:5000/
 - Improve image preprocessing pipeline
 - Enhance model accuracy with more diverse datasets
 - Add drag-and-drop upload and camera capture
+
+
+## Dataset Link
+https://www.kaggle.com/code/gpreda/cnn-with-tensorflow-keras-for-fashion-mnist/notebook
