@@ -23,9 +23,14 @@ The model (`fashion.h5`) is a CNN trained on an extended Fashion MNIST dataset t
 ├── app.py                # Flask backend
 ├── fashion.h5            # Pre-trained model
 ├── templates/
-│   └── index.html        # Frontend HTML
+│   └── index.html
+│   └── layout.html
+│   └── kontak.html
+│   └── tentang.html
+│   └── uji_gambar.html   # Frontend HTML
 ├── static/
-│   └── uploads/          # Static assets like logo image
+│   └── uploads/
+│   └── styles.css        # Static assets like logo image
 └── README.md             # Project documentation
 ```
 
