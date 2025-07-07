@@ -57,7 +57,9 @@ http://127.0.0.1:5000/
 ```
 
 ## 📷 Sample UI
-![Sample UI](static/uploads/sample_ui.png)
+![image](https://github.com/user-attachments/assets/88956195-3db5-4cb8-be2c-92d4cb654c51)
+
+
 
 ## ✨ Future Improvements
 - Add more clothing categories
@@ -68,3 +70,10 @@ http://127.0.0.1:5000/
 
 ## Dataset Link
 https://www.kaggle.com/code/gpreda/cnn-with-tensorflow-keras-for-fashion-mnist/notebook
+
+## Demo Result
+
+https://github.com/user-attachments/assets/66d02ed4-99e3-499f-a229-06b257c3e6c6
+
+
+
