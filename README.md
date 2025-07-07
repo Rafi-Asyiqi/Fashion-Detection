@@ -20,6 +20,7 @@ Fashion MNIST is widely used in the machine learning community for developing an
 - Test set: 10,000 images
 - Image size: 28x28 pixels, grayscale
 - Number of classes: 10
+
 link : https://www.kaggle.com/datasets/zalando-research/fashionmnist
 
 ## 🛠 Technologies Used
@@ -91,9 +92,10 @@ This project uses a combination of public datasets and a custom-built dataset to
 
 1. Fashion MNIST Dataset (from Kaggle)
 A widely-used public dataset obtained from Kaggle, the Fashion MNIST dataset includes 70,000 grayscale images (28x28 px) representing 10 categories of modern fashion items such as T-shirts, trousers, coats, sneakers, and more. It serves as the primary dataset for training the model on common, everyday clothing.
+
 link kaggle : https://www.kaggle.com/code/gpreda/cnn-with-tensorflow-keras-for-fashion-mnist/notebook
 
-3. Custom Traditional Clothing Dataset
+2. Custom Traditional Clothing Dataset
 To complement the Fashion MNIST dataset and address the lack of cultural variety, a custom dataset was created by collecting images from online sources. This dataset contains colored images of traditional Indonesian clothing items, organized into the following labeled folders:
 📁 hijab
 📁 peci
